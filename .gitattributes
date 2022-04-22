@@ -1,2 +1,101 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+#________task_1________________________________________________________________________________
+# 1 згенерувати квадрати значень від 0 до 100000 і записати у різні файли:
+#     - значення кратні 3
+#     - значення кратні 5
+#     - парні числа
+
+
+def saver(nums, multp_to):
+    with open(f"_multiple_{multp_to}_.txt", 'w') as f:
+            f.write(str(nums))
+        
+
+def nums__(num):
+    nums = [i*i for i in range(100000) if i%num==0]
+    saver(nums, num)
+
+
+def square_nums_gen():
+    nums__(3)
+    nums__(5)
+    nums__(2)
+
+
+square_nums_gen()
+
+
+#________task_2________________________________________________________________________________
+# 2. Hаписати генератор безпечних паролів. 
+#    Згенерувати і записати 1000 паролів в файл
+
+
+import random
+import string
+
+
+def _passwords_():
+    combinations = list(string.ascii_letters + string.digits + "--__")
+    password_list_gen(combinations)
+
+
+def saver_password(passwrd):
+    with open(f"password.txt", 'w') as f:
+        f.write(passwrd)
+
+
+def password_list_gen(combo):
+    a = []
+    for i in range(1000):
+        password = "".join(random.sample(combo, 8))
+        a.append(password)
+        saver_password(str(a))
+
+
+_passwords_()
+
+
+#________task_3________________________________________________________________________________
+# 3. написати власний генератор, який повертає значення як це робить range():
+#    може приймати start, end, step і поверне відповідні згенеровані значення
+
+
+start_ = int(input('type number, I should start wich: '))
+end = int(input('type number, I should end wich: '))
+step = int(input('type number, I should make step beetwen the numbers: '))
+
+
+def generator_like_range(start_, end, step):
+    while start_ < end:
+        start_ = start_ + step
+        print(start_)
+
+
+generator_like_range(start_, end, step)
+
+
+#________task_4________________________________________________________________________________
+#  4. написати програму яка генерує одне рандомне число random_number від 0 до 100, а потім генерує рандомні
+#     числа від 0 до 100 поки не вгадає random_number
+
+
+def start():
+    random_number = random.randint(0, 100)
+    print(f"player: - try to find {random_number} \nbot: - okay let's go!")
+    process(random_number)
+
+def process(random_number):
+    tries = 0
+    while 1:
+        tries = tries + 1
+        try_to_find = random.randint(0, 100)
+        print(try_to_find)
+        if try_to_find != random_number:
+            print("player: - incorrect, try again)")
+            continue
+        else:
+            print('player: - you found it, congratulations!')
+            print("________________________________")
+            print(f'you needed {tries} tries')
+            break
+
+start()
